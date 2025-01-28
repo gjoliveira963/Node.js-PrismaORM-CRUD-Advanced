@@ -1,0 +1,48 @@
+{
+  "name": "nodejs-prismaorm-crud-advanced",
+  "version": "1.0.0",
+  "description": "Este projeto é um exemplo de CRUD utilizando os conhecimentos avançados do PrismaORM.",
+  "keywords": [
+    "Node.js",
+    "PrismaORM",
+    "CRUD",
+    "advanced",
+    "PostgreSQL",
+    "transactions",
+    "relationships"
+  ],
+  "homepage": "https://github.com/gjoliveira963/Node.js-PrismaORM-CRUD-Advanced#readme",
+  "bugs": {
+    "url": "https://github.com/gjoliveira963/Node.js-PrismaORM-CRUD-Advanced/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gjoliveira963/Node.js-PrismaORM-CRUD-Advanced.git"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "G. J. Oliveira",
+    "email": "development@gjoliveira.dev"
+  },
+  "type": "module",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "tsc",
+    "migrate": "prisma migrate dev",
+    "serve": "node dist/index.js",
+    "start": "tsx watch src/index.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.7",
+    "prisma": "^6.2.1",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  }
+}

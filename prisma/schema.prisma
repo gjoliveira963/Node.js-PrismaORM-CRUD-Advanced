@@ -1,0 +1,82 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  age       Int?
+  balance   Float    @default(0.0)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  movies    Movie[]
+
+  @@map("users")
+}
+
+model Movie {
+  id          Int                @id @default(autoincrement())
+  title       String
+  releaseDate DateTime
+  detail      MovieDetail        @relation(fields: [detailId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  detailId    Int                @unique
+  director    Director?          @relation(fields: [directorId], references: [id])
+  directorId  Int?
+  categories  CategoryAndMovie[]
+  userId      Int?
+  user        User?              @relation(fields: [userId], references: [id])
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+
+  @@map("movies")
+}
+
+model MovieDetail {
+  id          Int      @id @default(autoincrement())
+  duration    Int
+  description String
+  movie       Movie?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("movie_details")
+}
+
+model Director {
+  id        Int      @id @default(autoincrement())
+  name      String
+  movies    Movie[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("directors")
+}
+
+model Category {
+  id        Int                @id @default(autoincrement())
+  name      String             @unique
+  movies    CategoryAndMovie[]
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
+
+  @@map("categories")
+}
+
+model CategoryAndMovie {
+  category   Category @relation(fields: [categoryId], references: [id])
+  movie      Movie    @relation(fields: [movieId], references: [id])
+  categoryId Int
+  movieId    Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@id([categoryId, movieId])
+  @@map("categories_movies")
+}
